@@ -1,0 +1,41 @@
+﻿@model IEnumerable<FIT5120_Waste.Models.Article>
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Index</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.articleName)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Waste.wasteName)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.articleName)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Waste.wasteName)
+        </td>
+        <td>
+            <p><a class="btn btn-default" href="https://www.epa.gov/recycle/how-do-i-recycle-common-recyclables">Details &raquo;</a></p>
+            <!--@Html.ActionLink("Edit", "Edit", new { id=item.articleId }) |
+     @Html.ActionLink("Details", "https://www.epa.gov/recycle/how-do-i-recycle-common-recyclables") |
+     @Html.ActionLink("Delete", "Delete", new { id=item.articleId })-->
+        </td>
+    </tr>
+}
+
+</table>

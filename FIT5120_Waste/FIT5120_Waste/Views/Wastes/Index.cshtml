@@ -1,0 +1,40 @@
+﻿@model IEnumerable<FIT5120_Waste.Models.Waste>
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Index</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.wasteName)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.WasteKind.wasteKindName)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.wasteName)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.WasteKind.wasteKindName)
+        </td>
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { id=item.wasteId }) |
+            @Html.ActionLink("Details", "Details", new { id=item.wasteId }) |
+            @Html.ActionLink("Delete", "Delete", new { id=item.wasteId })
+        </td>
+    </tr>
+}
+
+</table>

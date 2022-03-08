@@ -1,0 +1,190 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+    <Schema Namespace="FIT5120_Model.Store" Alias="Self" Provider="System.Data.SqlClient" ProviderManifestToken="2012" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+  <EntityContainer Name="FIT5120_ModelStoreContainer">
+    <EntitySet Name="WasteSet" EntityType="FIT5120_Model.Store.WasteSet" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="WasteKindSet" EntityType="FIT5120_Model.Store.WasteKindSet" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="ArticleSet" EntityType="FIT5120_Model.Store.ArticleSet" store:Type="Tables" Schema="dbo" />
+    <AssociationSet Name="ArticleWaste" Association="FIT5120_Model.Store.ArticleWaste">
+      <End Role="Article" EntitySet="ArticleSet" />
+      <End Role="Waste" EntitySet="WasteSet" />
+    </AssociationSet>
+    <AssociationSet Name="WasteWasteKind" Association="FIT5120_Model.Store.WasteWasteKind">
+      <End Role="Waste" EntitySet="WasteSet" />
+      <End Role="WasteKind" EntitySet="WasteKindSet" />
+    </AssociationSet>
+  </EntityContainer>
+  <EntityType Name="WasteSet">
+    <Key>
+      <PropertyRef Name="wasteId" />
+    </Key>
+    <Property Name="wasteId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="wasteName" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="WasteKind_wasteKindId" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="WasteKindSet">
+    <Key>
+      <PropertyRef Name="wasteKindId" />
+    </Key>
+    <Property Name="wasteKindId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="wasteKindName" Type="nvarchar(max)" Nullable="false" />
+  </EntityType>
+  <EntityType Name="ArticleSet">
+    <Key>
+      <PropertyRef Name="articleId" />
+    </Key>
+    <Property Name="articleId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="articleName" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="Waste_wasteId" Type="int" Nullable="false" />
+  </EntityType>
+  <Association Name="ArticleWaste">
+    <End Role="Article" Type="FIT5120_Model.Store.ArticleSet" Multiplicity="*" />
+    <End Role="Waste" Type="FIT5120_Model.Store.WasteSet" Multiplicity="1" />
+    <ReferentialConstraint>
+      <Principal Role="Waste">
+        <PropertyRef Name="wasteId" />
+      </Principal>
+      <Dependent Role="Article">
+        <PropertyRef Name="Waste_wasteId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="WasteWasteKind">
+    <End Role="Waste" Type="FIT5120_Model.Store.WasteSet" Multiplicity="*" />
+    <End Role="WasteKind" Type="FIT5120_Model.Store.WasteKindSet" Multiplicity="1" />
+    <ReferentialConstraint>
+      <Principal Role="WasteKind">
+        <PropertyRef Name="wasteKindId" />
+      </Principal>
+      <Dependent Role="Waste">
+        <PropertyRef Name="WasteKind_wasteKindId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+</Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema xmlns="http://schemas.microsoft.com/ado/2009/11/edm" xmlns:cg="http://schemas.microsoft.com/ado/2006/04/codegeneration" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" Namespace="FIT5120_Model" Alias="Self" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" annotation:UseStrongSpatialTypes="false">
+        <EntityContainer Name="FIT5120_ModelContainer" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="WasteSet" EntityType="FIT5120_Model.Waste" />
+          <EntitySet Name="WasteKindSet" EntityType="FIT5120_Model.WasteKind" />
+          <EntitySet Name="ArticleSet" EntityType="FIT5120_Model.Article" />
+          <AssociationSet Name="ArticleWaste" Association="FIT5120_Model.ArticleWaste">
+            <End Role="Article" EntitySet="ArticleSet" />
+            <End Role="Waste" EntitySet="WasteSet" />
+          </AssociationSet>
+          <AssociationSet Name="WasteWasteKind" Association="FIT5120_Model.WasteWasteKind">
+            <End Role="Waste" EntitySet="WasteSet" />
+            <End Role="WasteKind" EntitySet="WasteKindSet" />
+          </AssociationSet>
+        </EntityContainer>
+        <EntityType Name="Waste">
+          <Key>
+            <PropertyRef Name="wasteId" />
+          </Key>
+          <Property Name="wasteId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="wasteName" Type="String" Nullable="false" />
+          <NavigationProperty Name="Article" Relationship="FIT5120_Model.ArticleWaste" FromRole="Waste" ToRole="Article" />
+          <NavigationProperty Name="WasteKind" Relationship="FIT5120_Model.WasteWasteKind" FromRole="Waste" ToRole="WasteKind" />
+          <Property Name="WasteKind_wasteKindId" Type="Int32" Nullable="false" />
+        </EntityType>
+        <EntityType Name="WasteKind">
+          <Key>
+            <PropertyRef Name="wasteKindId" />
+          </Key>
+          <Property Name="wasteKindId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="wasteKindName" Type="String" Nullable="false" />
+          <NavigationProperty Name="Waste" Relationship="FIT5120_Model.WasteWasteKind" FromRole="WasteKind" ToRole="Waste" />
+        </EntityType>
+        <EntityType Name="Article">
+          <Key>
+            <PropertyRef Name="articleId" />
+          </Key>
+          <Property Name="articleId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="articleName" Type="String" Nullable="false" />
+          <NavigationProperty Name="Waste" Relationship="FIT5120_Model.ArticleWaste" FromRole="Article" ToRole="Waste" />
+          <Property Name="Waste_wasteId" Type="Int32" Nullable="false" />
+        </EntityType>
+        <Association Name="ArticleWaste">
+          <End Type="FIT5120_Model.Article" Role="Article" Multiplicity="*" />
+          <End Type="FIT5120_Model.Waste" Role="Waste" Multiplicity="1" />
+          <ReferentialConstraint>
+            <Principal Role="Waste">
+              <PropertyRef Name="wasteId" />
+            </Principal>
+            <Dependent Role="Article">
+              <PropertyRef Name="Waste_wasteId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="WasteWasteKind">
+          <End Type="FIT5120_Model.Waste" Role="Waste" Multiplicity="*" />
+          <End Type="FIT5120_Model.WasteKind" Role="WasteKind" Multiplicity="1" />
+          <ReferentialConstraint>
+            <Principal Role="WasteKind">
+              <PropertyRef Name="wasteKindId" />
+            </Principal>
+            <Dependent Role="Waste">
+              <PropertyRef Name="WasteKind_wasteKindId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+    <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+  <EntityContainerMapping StorageEntityContainer="FIT5120_ModelStoreContainer" CdmEntityContainer="FIT5120_ModelContainer">
+    <EntitySetMapping Name="WasteSet">
+      <EntityTypeMapping TypeName="IsTypeOf(FIT5120_Model.Waste)">
+        <MappingFragment StoreEntitySet="WasteSet">
+          <ScalarProperty Name="wasteId" ColumnName="wasteId" />
+          <ScalarProperty Name="wasteName" ColumnName="wasteName" />
+          <ScalarProperty Name="WasteKind_wasteKindId" ColumnName="WasteKind_wasteKindId" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="WasteKindSet">
+      <EntityTypeMapping TypeName="IsTypeOf(FIT5120_Model.WasteKind)">
+        <MappingFragment StoreEntitySet="WasteKindSet">
+          <ScalarProperty Name="wasteKindId" ColumnName="wasteKindId" />
+          <ScalarProperty Name="wasteKindName" ColumnName="wasteKindName" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="ArticleSet">
+      <EntityTypeMapping TypeName="IsTypeOf(FIT5120_Model.Article)">
+        <MappingFragment StoreEntitySet="ArticleSet">
+          <ScalarProperty Name="articleId" ColumnName="articleId" />
+          <ScalarProperty Name="articleName" ColumnName="articleName" />
+          <ScalarProperty Name="Waste_wasteId" ColumnName="Waste_wasteId" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+  </EntityContainerMapping>
+</Mapping></edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <edmx:Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </edmx:Connection>
+    <edmx:Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="False" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+        <DesignerProperty Name="UseLegacyProvider" Value="False" />
+      </DesignerInfoPropertySet>
+    </edmx:Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>

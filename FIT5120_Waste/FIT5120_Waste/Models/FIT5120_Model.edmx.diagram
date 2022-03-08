@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="41e315cd0f6f437ab5b6b81d32895cc7" Name="Diagram1" >
+        <EntityTypeShape EntityType="FIT5120_Model.Waste" Width="1.5" PointX="4.75" PointY="0.625" />
+        <EntityTypeShape EntityType="FIT5120_Model.WasteKind" Width="1.5" PointX="4.875" PointY="3.5" />
+        <EntityTypeShape EntityType="FIT5120_Model.Article" Width="1.5" PointX="8" PointY="0.875" />
+        <AssociationConnector Association="FIT5120_Model.ArticleWaste" />
+        <AssociationConnector Association="FIT5120_Model.WasteWasteKind" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>

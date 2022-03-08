@@ -1,0 +1,27 @@
+﻿@model FIT5120_Waste.Models.WasteKind
+
+@{
+    ViewBag.Title = "Details";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>WasteKind</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.wasteKindName)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.wasteKindName)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.wasteKindId }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

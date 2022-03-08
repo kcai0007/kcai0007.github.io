@@ -1,0 +1,31 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+  <EntityContainerMapping StorageEntityContainer="FIT5120_ModelStoreContainer" CdmEntityContainer="FIT5120_ModelContainer">
+    <EntitySetMapping Name="WasteSet">
+      <EntityTypeMapping TypeName="IsTypeOf(FIT5120_Model.Waste)">
+        <MappingFragment StoreEntitySet="WasteSet">
+          <ScalarProperty Name="wasteId" ColumnName="wasteId" />
+          <ScalarProperty Name="wasteName" ColumnName="wasteName" />
+          <ScalarProperty Name="WasteKind_wasteKindId" ColumnName="WasteKind_wasteKindId" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="WasteKindSet">
+      <EntityTypeMapping TypeName="IsTypeOf(FIT5120_Model.WasteKind)">
+        <MappingFragment StoreEntitySet="WasteKindSet">
+          <ScalarProperty Name="wasteKindId" ColumnName="wasteKindId" />
+          <ScalarProperty Name="wasteKindName" ColumnName="wasteKindName" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="ArticleSet">
+      <EntityTypeMapping TypeName="IsTypeOf(FIT5120_Model.Article)">
+        <MappingFragment StoreEntitySet="ArticleSet">
+          <ScalarProperty Name="articleId" ColumnName="articleId" />
+          <ScalarProperty Name="articleName" ColumnName="articleName" />
+          <ScalarProperty Name="Waste_wasteId" ColumnName="Waste_wasteId" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+  </EntityContainerMapping>
+</Mapping>

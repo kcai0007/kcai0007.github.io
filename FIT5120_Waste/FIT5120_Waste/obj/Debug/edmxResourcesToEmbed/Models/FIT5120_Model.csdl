@@ -1,0 +1,67 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema xmlns="http://schemas.microsoft.com/ado/2009/11/edm" xmlns:cg="http://schemas.microsoft.com/ado/2006/04/codegeneration" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" Namespace="FIT5120_Model" Alias="Self" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" annotation:UseStrongSpatialTypes="false">
+  <EntityContainer Name="FIT5120_ModelContainer" annotation:LazyLoadingEnabled="true">
+    <EntitySet Name="WasteSet" EntityType="FIT5120_Model.Waste" />
+    <EntitySet Name="WasteKindSet" EntityType="FIT5120_Model.WasteKind" />
+    <EntitySet Name="ArticleSet" EntityType="FIT5120_Model.Article" />
+    <AssociationSet Name="ArticleWaste" Association="FIT5120_Model.ArticleWaste">
+      <End Role="Article" EntitySet="ArticleSet" />
+      <End Role="Waste" EntitySet="WasteSet" />
+    </AssociationSet>
+    <AssociationSet Name="WasteWasteKind" Association="FIT5120_Model.WasteWasteKind">
+      <End Role="Waste" EntitySet="WasteSet" />
+      <End Role="WasteKind" EntitySet="WasteKindSet" />
+    </AssociationSet>
+  </EntityContainer>
+  <EntityType Name="Waste">
+    <Key>
+      <PropertyRef Name="wasteId" />
+    </Key>
+    <Property Name="wasteId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="wasteName" Type="String" Nullable="false" />
+    <NavigationProperty Name="Article" Relationship="FIT5120_Model.ArticleWaste" FromRole="Waste" ToRole="Article" />
+    <NavigationProperty Name="WasteKind" Relationship="FIT5120_Model.WasteWasteKind" FromRole="Waste" ToRole="WasteKind" />
+    <Property Name="WasteKind_wasteKindId" Type="Int32" Nullable="false" />
+  </EntityType>
+  <EntityType Name="WasteKind">
+    <Key>
+      <PropertyRef Name="wasteKindId" />
+    </Key>
+    <Property Name="wasteKindId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="wasteKindName" Type="String" Nullable="false" />
+    <NavigationProperty Name="Waste" Relationship="FIT5120_Model.WasteWasteKind" FromRole="WasteKind" ToRole="Waste" />
+  </EntityType>
+  <EntityType Name="Article">
+    <Key>
+      <PropertyRef Name="articleId" />
+    </Key>
+    <Property Name="articleId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="articleName" Type="String" Nullable="false" />
+    <NavigationProperty Name="Waste" Relationship="FIT5120_Model.ArticleWaste" FromRole="Article" ToRole="Waste" />
+    <Property Name="Waste_wasteId" Type="Int32" Nullable="false" />
+  </EntityType>
+  <Association Name="ArticleWaste">
+    <End Type="FIT5120_Model.Article" Role="Article" Multiplicity="*" />
+    <End Type="FIT5120_Model.Waste" Role="Waste" Multiplicity="1" />
+    <ReferentialConstraint>
+      <Principal Role="Waste">
+        <PropertyRef Name="wasteId" />
+      </Principal>
+      <Dependent Role="Article">
+        <PropertyRef Name="Waste_wasteId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="WasteWasteKind">
+    <End Type="FIT5120_Model.Waste" Role="Waste" Multiplicity="*" />
+    <End Type="FIT5120_Model.WasteKind" Role="WasteKind" Multiplicity="1" />
+    <ReferentialConstraint>
+      <Principal Role="WasteKind">
+        <PropertyRef Name="wasteKindId" />
+      </Principal>
+      <Dependent Role="Waste">
+        <PropertyRef Name="WasteKind_wasteKindId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+</Schema>

@@ -1,0 +1,63 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="FIT5120_Model.Store" Alias="Self" Provider="System.Data.SqlClient" ProviderManifestToken="2012" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+  <EntityContainer Name="FIT5120_ModelStoreContainer">
+    <EntitySet Name="WasteSet" EntityType="FIT5120_Model.Store.WasteSet" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="WasteKindSet" EntityType="FIT5120_Model.Store.WasteKindSet" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="ArticleSet" EntityType="FIT5120_Model.Store.ArticleSet" store:Type="Tables" Schema="dbo" />
+    <AssociationSet Name="ArticleWaste" Association="FIT5120_Model.Store.ArticleWaste">
+      <End Role="Article" EntitySet="ArticleSet" />
+      <End Role="Waste" EntitySet="WasteSet" />
+    </AssociationSet>
+    <AssociationSet Name="WasteWasteKind" Association="FIT5120_Model.Store.WasteWasteKind">
+      <End Role="Waste" EntitySet="WasteSet" />
+      <End Role="WasteKind" EntitySet="WasteKindSet" />
+    </AssociationSet>
+  </EntityContainer>
+  <EntityType Name="WasteSet">
+    <Key>
+      <PropertyRef Name="wasteId" />
+    </Key>
+    <Property Name="wasteId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="wasteName" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="WasteKind_wasteKindId" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="WasteKindSet">
+    <Key>
+      <PropertyRef Name="wasteKindId" />
+    </Key>
+    <Property Name="wasteKindId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="wasteKindName" Type="nvarchar(max)" Nullable="false" />
+  </EntityType>
+  <EntityType Name="ArticleSet">
+    <Key>
+      <PropertyRef Name="articleId" />
+    </Key>
+    <Property Name="articleId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="articleName" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="Waste_wasteId" Type="int" Nullable="false" />
+  </EntityType>
+  <Association Name="ArticleWaste">
+    <End Role="Article" Type="FIT5120_Model.Store.ArticleSet" Multiplicity="*" />
+    <End Role="Waste" Type="FIT5120_Model.Store.WasteSet" Multiplicity="1" />
+    <ReferentialConstraint>
+      <Principal Role="Waste">
+        <PropertyRef Name="wasteId" />
+      </Principal>
+      <Dependent Role="Article">
+        <PropertyRef Name="Waste_wasteId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="WasteWasteKind">
+    <End Role="Waste" Type="FIT5120_Model.Store.WasteSet" Multiplicity="*" />
+    <End Role="WasteKind" Type="FIT5120_Model.Store.WasteKindSet" Multiplicity="1" />
+    <ReferentialConstraint>
+      <Principal Role="WasteKind">
+        <PropertyRef Name="wasteKindId" />
+      </Principal>
+      <Dependent Role="Waste">
+        <PropertyRef Name="WasteKind_wasteKindId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+</Schema>
